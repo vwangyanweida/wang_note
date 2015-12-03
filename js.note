@@ -1,0 +1,23 @@
+<1> div 和 span:  现在 HTML 和 XHTML 有两个只用来标出范围的标签:<div>和<span>。它们用来将内容划分成
+    语义性(semantic)的块,也就是具有相似含义(meaning)的块。一个表格单元格或段落中的内容可 能具有共同点,也可能没有,但是每个<div>和<span>中的内容应该具有相似的含义。
+    那么,<div>和<span>有什么区别呢?<div>是一个块级(block-level)元素,也就是说,它与前后 元素之间有物理换行。但<span>不是块级的,它是行内的(inline),所以可以将它应用于句子中的一 3 个短语。
+<2> class and id。css和js都可以利用这些属性
+    class 标示出可能会多次使用的元素
+    id 标示出的元素对于文档时唯一的
+
+eg：
+    .movieTitle { font: bold 14px; color: #000099;
+    ￼}
+
+    #theaterName { 12 font: bold 28px;
+    color: #FF0000;}
+#用于id，.用于class
+
+3. javascript 中原始类型有5种：还有引用类型
+    undefined:表示未定义，即声明了变量却没有赋值，此类型只有一个值。
+    null:此类型同样只有一个值，表示尚未存在的对象，如果函数／方法要返回对象，当找不到该对象，通常返回的是null。
+    number:数字，包括整数和小数
+    string:单引号或双引号
+    boolean:true和falses ，但值为false,0,null,undefined,NaN或者空字符串时表示假，其他值则表示真。
+
+4.

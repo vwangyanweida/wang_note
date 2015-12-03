@@ -1,0 +1,68 @@
+1  optparse  
+
+            from optparse import OptionParser  
+
+            parser = OptionParser()  
+
+            parser.add_option("-f", "--file", dest="filename",  
+                              help="write report to FILE", metavar="FILE")  
+            parser.add_option("-q", "--quiet",  
+                              action="store_false", dest="verbose", default=True,  
+                              help="don't print status messages to stdout")  
+                                                                    
+            (options, args) = parser.parse_args()  
+            print(options.filename)
+
+
+
+
+              parser.add_option("-f", "--file",  
+                              action="store", type="string", dest="filename")  
+              args = ["-f", "foo.txt"]  
+              (options, args) = parser.parse_args(args)  
+              print options.filename  
+2、当函数的参数不确定时，可以使用*args和**kwargs。*args没有key值，**kwargs有key值。
+(1)、*
+    eg. def fun_var_args(*args):
+            print(args,*args)
+
+        参数里时*args时，传进来的多个参数被组装成一个tuple，
+        
+        a = [1,2,3]
+        fun_var_args(a,'q','2',3)
+        >([1, 2, 3], 'q', '2', 3) [1, 2, 3] q 2 3
+        
+        由上可以得出:
+        <1>函数定义中的*表示把调用该函数时传进来的多个参数组装成为tuple,注意是传进来的参数变成tuple，如上例:a只是tuple中的一个元素。
+        <2>而在调用函数中参数加上*表示把可迭代对象中(此处不包括字典)的元素取出，相当于调用时输入多个参数，在函数内部会讲他们封装为tuple，
+        eg:fun_var_args(*a)        
+           >(1,2,3)
+         相当于fun_var_args(1,2,3)
+           >(1,2,3)
+        <3>在函数内部对可迭代对象(此处不包括字典)使用*表示把此对象中的所有对象取出，相当于一层解包。
+
+(2)、**
+    eg.def cc(**kwargs):
+            print(kwargs,'   ',*kwargs)
+            print(type(kwargs))
+            print(type(**kwargs))
+
+            <1>在函数定义中使用** 表示在调用该函数时接受数目不定的键值对（注意调用时是键值对，不是字典，如果是字典，还需要使用**将字典中对象取出来，且还需注意字典的kye和函数定义的形参必须一样。这样函数中就不是一个字典了，而是多个键值对），并把它们转化为一个字典。
+            <2>在函数调用中使用**表示把字典转化为键值对。
+            <3>在函数体中不能用**，用*只能取出字典的key。
+
+
+总结：* 函数定义就是把多个参数组装为一个tuple，每个参数都是tuple中的一项。其他时候*将可迭代对象解包。
+      **函数定义就是把多个键值对参数组装成一个字典，函数调用中表示把一个字典变为多个键值对。其他时候不可用。
+
+3、注意:!!!!闭包函数返回的函数并没有立刻执行，而是直到调用了f()才执行，返回闭包时牢记的一点就是：返回函数不要引用任何循环变量，或者后续会发生变化的变量。一定不能传会变化的变量，否则当函数去执行时，可能变量的值已经变了。
+闭包函数就是函数内部返回函数，eg：
+
+def lazy_sum(*args):
+    def sum():
+        ax = 0
+        for n in args:
+            ax = ax + n
+        return ax
+    return sum
+

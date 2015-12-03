@@ -1,0 +1,38 @@
+1、if is_py3:
+      def u(s):
+        return s
+   else:
+      def u(s):
+        return s.decode('unicode-escape')
+可以让一个函数根据情况自动选择适当的定义。
+
+2、初始化一个类时，如果类的初始化函数定义的格式def __init__（a = 1,b = 2,c = 3,d =4 ）格式时，若参数是列表需要加一个* ,若是字典时需要加**表示。
+3、函数加默认值时，有默认值的参数必须在没有默认值参数的后面，如:def a(a,b,c=1,d=2)，这样，顺序不能乱，赋值时可以都用列表，也可以都用字典，如: a(1,3,*[3,4]),a(**{"a":1,"b":2,"c":3,"d":4}),a(1,2,*[3],**{"d":4})
+4、类函数中定义的函数如果有self说明时类实例函数，需要实例对象以后由对象调用，如果类中函数第一个参数时cls，用@classmethod修饰器修饰，说明时类方法。
+
+注意：@classmethod 仅仅适用于单独的，与类本身的数据结构无关函数，其实用了它的函数，与使用普通函数无异，甚至不能在参数里加入 self，如果要在其中使用类的数据结构，仍然需要将类实例化一次才可以，所以要小心使用。classmethod修饰的函数第一个参数应该是cls，即调用类为第一个参数，而不能为空。
+5、enumerate接受列表或数组。
+def enumerate (collection ): 
+  'Generates an indexed series:  (0,coll[0]), (1,coll[1]) ...'       
+  i = 0 
+  it = iter (collection ) 
+  while 1 : 
+       yield (i , it . next ()) 
+       i += 1 
+
+6、要创建一个generator，有很多种方法。第一种方法很简单，只要把一个列表生成式的[]改成()，就创建了一个generator：
+    eg.  g = (x * x for x in range(10))
+         g
+         <generator object <genexpr> at 0x11...>
+7、yield生成器函数:函数是顺序执行，遇到return语句或者最后一行函数语句就返回。而变成generator的函数，在每次调用next()的时候执行，遇到yield语句返回，再次执行时从上次返回的yield语句处继续执行。
+
+8、如果要让内部属性不被外部访问，可以把属性的名称前加上两个下划线__，在Python中，实例的变量名如果以__开头，就变成了一个私有变量（private），只有内部可以访问，外部不能访问,需要注意的是，在Python中，变量名类似__xxx__的，也就是以双下划线开头，并且以双下划线结尾的，是特殊变量，特殊变量是可以直接访问的，不是private变量，所以，不能用__name__、__score__这样的变量名。
+有些时候，你会看到以一个下划线开头的实例变量名，比如_name，这样的实例变量外部是可以访问的，但是，按照约定俗成的规定，当你看到这样的变量时，意思就是，“虽然我可以被访问，但是，请把我视为私有变量，不要随意访问”。
+双下划线开头的实例变量是不是一定不能从外部访问呢？其实也不是。不能直接访问__name是因为Python解释器对外把__name变量改成了_Student__name，所以，仍然可以通过_Student__name来访问__name变量：
+
+9、字典推导
+my_phrase = ["No", "one", "expects", "the", "Spanish", "Inquisition"]
+my_dict = {key: value for value, key in enumerate(my_phrase)}
+print(my_dict)
+reversed_dict = {value: key for key, value in my_dict.items()}
+print(reversed_dict)

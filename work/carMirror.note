@@ -1,0 +1,29 @@
+1、照车镜系统API设计：
+    前后端用json格式数据交互。
+前端请求：
+    1.source
+    2.time
+    3.lang
+    4.params
+    5.sign
+    6.version
+    7.device_udid
+    8.device_token
+    sign = md5(source + time) + md5(lang + params) + 加密串
+
+
+后端响应：
+    1.version
+    2.device_udid
+    3.lang
+    4.time
+    5.source
+    6.code:成功 200,失败 400,401
+    7.value:Json(结果)  失败 message
+    前5项是为了让客户验证自己的请求。
+
+
+查询中1是成功，2是失败。
+
+
+Lib中的内容不要更改，文件名用驼峰名

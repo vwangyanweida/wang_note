@@ -1,0 +1,551 @@
+第一章
+
+1、DOM对象与jQuery对象
+（一）DOM对象
+    var domObj ＝ document.getElementById('id');
+    var ObjHTML = domObj.innerHTML;
+（二）jQuery对象
+    $('#foo').html();
+
+两种对象各自只能用自己的对象方法，不能互用。
+
+2、jQuery和DOM的相互转化
+（一）定义变量的风格：
+    jQuery对象在变量之前加$，例如：var $variable = jQuery对象;
+    DOM对象定义如下：var variable ＝ DOM对象;
+（一）jQuery2DOM
+    jQuery提供两种方法将一个jQuery对象转换为DOM对象，即［index］和get（index）。
+    <1>通过［index］方法得到相应的DOM对象。
+    eg:
+        var $cr = $("#cr");
+        var cr = $cr[0];
+        alert(cr.checked)
+        
+    <2>通过jQuery对象本身的get(index)方法得到相应的DOM对象。
+    eg:
+        var $cr = $("#cr");
+        var cr = $cr.get(0);
+        alert(cr.checked)
+（二）DOM2jQuery
+    对于一个DOM对象，只需要用$()把DOM对象包装起来，就可以获得一个jQuery对象。
+    eg:
+        var cr = getElementById("cr");
+        var $cr = $(cr);
+2、
+（一）、jQuery可以在任何时候调用jQuery.noConflict()函数来讲变量$的控制权移交给其他JavaScript库。
+（二）、调用jQuery.noConflict()后，可以在程序中将jQuery()函数作为jQuery对象的制造工厂。
+（三）、设置其他备用名称，var $j = jQuery.noConflict()//自定义一个快捷方式
+        $j 和以前的$相同，代表一个jQuery制造工厂。这样其他库就可以使用$这个符号。
+（四）、如果还想使用$而不管其他库的$()方法，同事有不想与其他库相冲突，可以暂时先将$控制权过渡给别的库，然后重新定义函数。p18
+
+第二章
+1、css选择器
+（一）、标签选择器:以文档元素作为选择符。
+    td｛
+        font-size:14px;
+        width:120px;
+        }
+（二）、ID选择器:以文档元素的唯一标识符ID作为选择符
+    #note{
+            font-size:14px;
+            width:120px;
+        }
+（三）、类选择器:以文档元素的class作为选择符
+    div.note{
+        font-size:14px;
+        width:120px;
+    }
+（四）、群组选择器：
+        td,p,div .a{
+            
+        }
+（五）、后代选择器：元素E的任意后代元素F
+        #links a{
+
+        }
+（六）、通配符选择符:以文档的所有元素作为选择符
+        *{
+            
+        }
+2、jQuery选择器
+
+    $()函数在很多JavaScript类库中都被作为一个选择器来使用，jQuery也不例外。
+
+    jQuery选择器分为基本选择器、层次选择器、过滤选择器和表单选择器。
+
+（一）、基本选择器
+    (1)#id                         $("#test")
+    (2).class                      $(".test")
+    (3)element                     $("p")                
+    (4)*                           $("*")
+    (5)selector1,selector2....     $("div,span,p.myClass")
+
+ （二）、层次选择器
+    (1)$("ancestor descendant")         所有后代元素，包括子元素和孙子辈的
+    (2)$("parent > child")  parent下的一级子元素元素
+    (3)$("prev + next")    
+    (4)$("prev ~ siblings") prev下的siblings同级元素
+ （三）、过滤选择器
+    <1>基本过滤选择器
+        (1):first
+        (2):last
+        (3):not(selector)
+        (4):even
+        (5):odd
+        (6):eq(index)
+        (7):gt(index)
+        (8):lt(index)
+        (9):header
+        (10):animated
+  
+    <2>内容过滤选择器
+        (1):contains(text)
+        (2):empty
+        (3):has(selector)
+        (4):parent
+
+    <3>可见性过滤选择器
+        (1):hidden
+        (2):visible
+
+    <4>属性过滤选择器
+        (1)[attribute]              $("div[id]")
+        (2)[attribute=value]        $("div[title=test]")
+        (3)[attribute!=value]       $("div[title!=test]")//没有titled的div也会被选中
+        (4)[attribute^=value]       $("div[title^=test]") title以value开头的div
+        (5)[attribute$=value]                                         结束的div
+        (6)[attribute*=value]       $("div[title*=test]") title 中含有"test"的div
+        (7)[selector1][selector2]   $同时拥有多个属性的div
+
+     <5>子元素过滤选择器
+        (1):nth-child(index/even/odd/equation)
+        (2):first-child
+        (3):last-child
+        (4):only-child
+
+    <6>表单对象属性过滤选择器
+        (1):enabled             选取所有可用元素
+        (2):disabled            选取所有不可用元素
+        (3):checked             选中（单选框，复选框）
+        (4):selected            被选中的元素（下拉列表）
+
+3、表单选择器
+    (1):input       选取所有<input><textarea><select><button>元素   $(":input")
+    (2):text        选取所有单行文本框                              $(":text")
+    (3):password    选取所有密码框
+    (4):radio       选取所有单选框
+    (5):checkbox            多选框
+    (6):submit              提交按钮
+    (7):image               图像按钮
+    (8):reset               重置按钮
+    (9):button              所有按钮
+    (10):file               上传域
+    (11):hidden             不可见元素
+
+第三章 jQyery中的DOM操作
+1、查找节点
+（一）、元素节点
+    var $li = $("ul li:eq(1)");
+    var li_text = $li.text();
+    alert(li_text)
+（二）、属性节点
+    找到元素之后，就可以使用attr()方法来获取它的各种属性
+
+    var $para = $("p");
+    var p_txt = $para.attr("title");
+    alert(p_txt);
+2、创建节点
+（一）、创建元素节点
+    $(html)方法会根据传入的HTML标记字符串，创建一个DOM对象，并将这个DOM对象包装成一个jQuery对象后返回。
+
+    eg.
+        var $li_1 = $("<li></li>");
+        var $li_2 = $("<li></li>");
+（二）、创建文本节点
+    
+    eg.
+         var $li_1 = $("<li>香蕉</li>");
+         var $li_2 = $("<li>雪梨</li>");
+（三）、创建属性节点
+    
+    eg.
+        var $li_1 = $("<li title='香蕉'>香蕉</li>");
+
+3、jQuery中插入节点
+    插入节点方法：
+            append（）
+            appendTo（）
+            prepend（）
+            prependTo（）
+            
+            after（）
+            insertAfter（）
+            before（）
+            insertBefore（）
+
+4、删除节点
+（一）、remove()方法
+    eg.
+        $("ul li:eq(1)").remove()
+    调用这个方法删除后，该节点所包含的所有后代节点将同时被删除，这个方法的返回值是一个指向已被删除的节点的引用，因此可以在以后再使用这些元素。
+    eg.
+        var $li = $("ul li:eq(1)").remove();
+        $li.appendTo("ul");
+    另外remove()方法也可以通过传递参数来选择性的删除元素
+    eg.
+        $("ul li").remove("li[title!=菠萝]");
+
+（二）、empty()方法
+严格来讲，empty()方法并不是删除节点，而是晴空节点，它能清空元素中的所有后代节点。
+    eg.
+        $("ul li:eq(1)").empty()
+        清空这个元素里的内容，注意时元素里的内容，本身这个元素还存在
+
+5、复制节点clone()方法
+（一）、clone不含参数被复制的新元素不具有任何行为
+    $("ul li").click(function(){
+            $(this).clone().appendTo("ul");
+            })
+（二）、clone()方法中传递一个参数ture，它的含义是复制元素的同绑定复制元素中所绑定的事件。因此该元素的副本也同样具有复制功能。
+    eg.
+        $(this).clone(true).appendTo("body");//参数为true
+
+6、替换节点
+（一）、replaceWith()方法
+    eg.
+        $("p").replaceWith("<strong>你最不喜欢的水果是?</strong>");
+（二）、replaceAll()方法
+    eg.
+        $("<strong>你最不喜欢的水果时?</strong>").replaceAll("p");
+
+7、包裹节点
+（一）、wrap()方法
+    eg.
+        $("strong").wrap("<b></b>");//用<b>标签把<strong>元素包裹起来
+        得到的结果如下：
+        <b><strong title="选择你最喜欢的水果.">你最喜欢的水果?</strong></b>
+（二）、wrapAll() 方法
+    wrap()方法是将所有元素进行单独的包裹
+    wrapAll()方法是将所有的元素包裹一次。
+（三）、wraplnner()方法
+    该方法将每一个匹配的元素的子内容（包括文本节点）用其他结构化的标记包裹起来。
+    eg.
+        $("strong").wrapInner("<b></b>");
+        结果如下：
+        <strong title="选择你最喜欢的水果."><b>你最喜欢的水果?</b></strong>
+
+8、属性操作
+    在jQuery中，用attr()方法来获取和设置元素属性，removeAttr()方法来删除元素属性。
+（一）、获取属性和设置属性
+    eg.
+        var $para = $("p");
+        var p_text = =$para.aatr("title")  //获取<p>元素节点属性title
+
+    如果要设置<p>元素的title的值，也可以使用同一个方法，不同的是需要传递两个参数即属性名和对应的值。
+    eg.
+        $("p").attr("title","your title");  //设置单个的属性值。
+        $("p").attr({"title":"your title","name":"test"}) //用字典来设置多个属性值。
+
+注意!!!:jQuery中的很多方法都是同一个函数实现获取和设置的，例如上面的attr()方法，类似的还有html()、text()、height()、width()、val()、css()等方法。
+（二）、删除属性 removeAttr()方法。
+    eg.
+        $("p").removeAttr("title");
+
+9、样式操作
+（一）、获取样式和设置样式
+(1) class 也是元素的属性，所以可以使用attr()方法来落去核设置class。
+    eg.
+        var p_class = $("p").attr("class");   //get class attribution
+
+    eg.
+        $("p").attr("class","high");             //set class attribution
+（二）、追加样式 addClass()方法
+    追加样式在原有样式的基础上再添加一个样式，是的同一个元素有多个样式，根据规定：
+    如果给一个元素添加了多个class值，哪么相当于合并了它们的样式。
+    如果有不同的class设定了同一样式属性，则厚者覆盖前者
+
+    注意，attr()方法是替换了class，追加是多了一个样式。
+（三）、移除样式
+    removeClass()方法，删除全部或者制定的class。
+    $("p").removeClass("high");  //删除一个class
+    $("p").removeClass("high another");   //删除多个class
+    $("p").removeClass();                 //删除<P>元素的所有class
+（四）、切换样式
+   <1>.eg
+   $toggleBtn.toggle(function(){
+           显示元素
+           },function(){
+            隐藏元素
+           })
+    <2>jQuery提供一个toggleClass()方法控制样式上的重复切换，如果雷鸣存在则删除它，如果类名不存在则添加它。
+    $("p").toggleClass("another");
+
+10.设置和获取HTML、文本和值
+（一）html()方法、text()方法
+    此方法类似于JavaScript中的innerHTML属性，可以涌来读取或者设置某个元素中的HTML内容。
+    eg.<p title="选择你最喜欢的水果."><strong>你最喜欢的水果是?</strong></p>
+        var p_html = $("p").html()
+        var p_text = $("p").text();
+        p_html  :<strong>你最喜欢的水果是?</strong>
+        p_text  :你最喜欢的水果是?
+
+    html()和text()都可以赋值，只要加上一个参数就可以：
+        eg.
+        $("p").html("<strong>你最喜欢的水果是?</strong>")
+        $("p").text("你最喜欢的水果是?");
+
+（二）val()
+    得到或者设置value，不加参数为得到value，加上参数为设置value。
+
+（tips）
+    得到焦点：focus。失去焦点：blur。
+    hover：徘徊，模仿悬停事件，鼠标移动到一个对象上面及移出这个对象
+    $("p").hover(function(){
+            $(this).next().show();//鼠标悬浮时触发
+            },function(){
+            $(this).next().hide();//鼠标离开时触发
+            })
+    toggle，切换，每次点击时切换要调用的函数，如果到最后一个函数，再切换时切换为第一个函数。
+    $("p").toggle(function(){},function(){},function(){})
+    focus()方法相当于js中的onfocus()方法，作用是处理获得焦点时的事件
+    blur()方法相当于js中的onblur()方法，作用是处理失去焦点时的时间。
+
+11.bind(),unbind()
+
+12.trigger()方法：
+（1）模拟用户操作：eg.
+                $('#btn').trigger("click");//模拟用户单击事件
+    可以简化写法：$('#btn').click();
+
+（2）出发自定义事件：trigger()方法不仅能触发浏览器支持的具有相同名称的事件，也可以触发自定义名称的事件。
+        eg.
+        $("#btn").bind("myClick",function(){
+                $('#test').append("<p>我的自定义事件。</p>");
+                })
+
+        触发这个事件，可以使用一下代码来实现:
+            $("#btn").trigger("myClick");
+（3）trigger(type[,data]):第一个参数是触发的事件，第二个参数传递给事件处理函数的附加数据，实属组形势传递。
+        eg.
+           $('#btn').bind("myClick",function(event,message1,message2){
+                   $('#test').append("<p>"+message2 + message2 +"</p>")
+                   })
+            $('#btn').trigger('myClick',['我的自定义','事件'])
+
+（4）tirgger()方法触发事件后，会执行浏览器的默认操作。
+    eg.
+        $("input").trigger("focus");
+        以上代码不仅会触发<input>元素绑定的focus事件，同时<input>会使元素本身得到焦点。
+        如果只想触发绑定的focus事件，而不执行浏览器的默认操作，可以使用
+        triggerHandler()方法。
+        eg.
+            $("input").triggerHandler("focus");
+
+（5）bind可以为元素一次绑定多个时间类型。eg
+$(function(){
+        $("div").bind("mouseover mouseout",function(){
+            $(this).toggleClass("over");
+            });
+        });
+
+（6）添加事件命名空间，便于管理
+$(function(){
+        $("div").bind("click.plugin",function(){
+            $("body").append("<p>click命名空间事件</p>");
+            });
+        });
+删除命名空间中所有的事件：$("div").unbind(".plugin");
+形同的事件名称，不同命名空间执行方法：
+    $("div").trigger("click!") 后面加!表示必配所有不包含在命名空间中的click方法。
+    $("div").trigger("click") 表示同时执行所有命名空间中的click，包括没有命名空间的事件。
+
+13. jQuery中的动画
+（1）show和hide方法。
+    hide方法会将该元素的display样式改为“none”。show方法会将该元素的display设置为block、inline活着其他除了“none”之外的值。
+
+（2）show()、hide()方法可以有一个速度参数
+    eg.     $('element').show("slow");
+            $("element").show(1000);   //单位 毫秒
+
+            $("element").hide(1000);
+
+（3）fadeIn()方法和fadeOut()方法：改变元素的不透明度，即淡入淡出效果。fadeOut()方法会在指定的一段时间内降低元素的不透明度，直到元素完全消失（"display:none"),fadeIn()方法真好相反。
+
+（4）slideUp方法和slideDown方法改变元素的高度。如果一个元素的display属性为“none”，当调用slideDown方法是，这个元素将由上至下延伸显示。slideUp方法正好相反。
+
+（tips）jQuery中的任何动画效果都可以指定3种速度参数，即“slow”、“normal”和“fast”，使用速度关键字要加引号，时间做参数不加引号。
+
+（5）自定义动画方法animate()
+    animate(params,speed,callback);
+
+params:一个包含样式属性及值的映射，比如{property1:"value1",properyt2:"value2",.....}.
+speed:速度参数，可选
+callback：在动画完成时执行的函数，可选
+
+（6）停止元素动画
+    stop([clearQueue][,gotoEnd]);
+    两个参数都为Boolean值，可选参数，第一个表示是否要清空未执行完的动画队列，gotoEnd代表是否直接将正在执行的动画跳转到末状态。
+
+（7）判断元素是否处于动画状态
+    if(!$(element).is(":animated")){}
+
+（8）其他动画方法
+    toggle(speed,[callback])  切换元素的可见状态，如可见，切换为隐藏，是隐藏则切换为可见。
+    eg.
+    $("#panel h5.head").click(function(){
+            $(this).next("div.content").toggle();
+            })
+
+    slideToggle(speed,[callback])   通过高度变化来切换匹配元素的可见性。
+
+    fadeTo(speed,opacity,[callback]) 可以吧元素的不透明度以渐进的方式调整到指定的值。
+    eg.
+    $("#panel h5.head").click(function{
+            $(this).next("div.content").fadeto(600,0.2);
+            })
+
+第五章  jQuery对表单、表格的操作及更多应用
+
+1. 一个表单有3个基本组成部分。
+（1）表单标签：包含处理表单数据所用的服务器端程序URL和提交方法
+（2）表单域：
+（3）表单按钮
+
+2.多行文本框高度变化：$(this).height($(this).height() + 50)
+可以通过动画来来渐进的增大，减小。
+
+多行文本框的滚动条高度变化
+    $(this).animate({scrollTop : "-=50"},400)
+
+3.复选框应用
+    复选框的选中或者不选状态必须通过控制元素的checked属性来达到目的。true或是false，通过attr()方法来设置属性checked的值。
+    非运算符"!",取反。
+
+4.三元运算符
+    $(this)[hasSelected?"removeClass":"addClass"]('selected');
+
+5.find()方法
+    find()方法获得当前元素集合总每个元素的后代，通过选择器、jQuery对象或元素来筛选。
+    .find(selector) //selector时一个字符串，包含匹配当前元素集合的选择器表达式，因为是string，所以可以用＋拼接。
+
+6.is方法()
+    is() 根据选择器、元素或 jQuery 对象来检测匹配元素集合，如果这些元素中至少有一个元素匹配给定的参数，则返回 true.
+    .is(selector) selector  字符串值，包含匹配元素的选择器表达式。可以拼接。
+
+7.has()
+    has() 将匹配元素集合缩减为拥有匹配指定选择器或 DOM 元素的后代的子集。
+    .has(selector) selector 字符串值，包含匹配元素的选择器表达式。
+
+8.children()
+    children() 方法返回匹配元素集合中每个元素的子元素，添加可选参数可通过选择器进行过滤。
+    eg.
+        $("div").children(".selected").css("color","red");
+
+    如果给定表示 DOM 元素集合的 jQuery 对象，.children() 方法允许我们检索 DOM 树中的这些元素，并用匹配元素构造新的 jQuery 对象。.find() 和 .children() 方法类似，不过后者只沿着 DOM 树向下遍历单一层级。
+
+    (tips)
+    请注意，与大多数 jQuery 方法一样，.children() 不返回文本节点；如果需要获得包含文本和注释节点在内的所有子节点，请使用 .contents()。
+
+9.contents()
+    contents() 方法获得匹配元素集合中每个元素的子节点，包括文本和注释节点。
+
+10.parent()
+    parent(selector) 获得当前匹配元素集合中每个元素的父元素，使用选择器进行筛选是可选的。
+
+11.load() 最常用的Ajax方法，能载入远程HTML代码并插入DOM中。
+    load(url [,data] [,callback])
+    url             String      url地址
+    dataf(可选)     Object      发送到服务器的key/value 数据
+    callback(可选)  Function    请完成时的回调函数，无论请求成功或失败
+
+    
+    1>.筛选载入的HTML文档
+    eg.     $("#tesText").load("test.html .para");
+
+    2>.传递方式 load()方法传递方式根据data来自动指定。如果没有参数传递，使用GET方法，反之，则会自动转换为POST方式。
+
+    3>.回调函数
+    该函数有3个参数，分别代表请求返回的内容、请求状态和XMLHttpRequest对象，jQuery代码如下：
+    $("#resText").load("text.html",function(responseText,textStatus,XMLHttpRequest){
+    responseText: 请求返回的内容
+    textStatus: 请求状态:success error notmodified timeout 4种
+    XMLHttpRequest:  XMLHttpRequest对象
+            })
+
+    4>.load()方法中，无论Ajax请求是否成功，只要当请求完成（complete）后，回调函数（callback）就被触发。对应 $.ajax()方法中的complete回调函数。
+
+12.$get()和$post()方法
+
+    $.get(url [,data] [,callback] [,type])
+    url               String        url地址  
+    data(可选)        Object        key/value参数
+    callback(可选)    Function      只有当Response的返回状态是success才调用改方法，自动将请求结果和状态传递给改方法。
+    type(可选)        String        服务器端返回的内容格式，包括xml、html、script、json、text和_default
+
+    eg.
+    $(function(){
+            $("#send").click(function(){
+                $.post("post1.php",{username:$("#username").val(),
+                    content:$("#content").val()},function(data,textStatus){
+                    $("#resText").append(data);
+                    })
+                })
+            })
+13.$each()函数不同于jQuery对象的each()方法，它是一个全局函数，不操作jQuery对象，而是以一个数组或者对象为第一个参数，以一个回调函数作为第2个函数。回调函数有两个参数：第一个参数为对象的成员或者数组的索引，第2个为对应变量或内容。
+
+14.$.getScript()
+    $(function(){
+            $('#send').click(function(){
+                $.getScript('test.js');
+                });
+            })
+15.$.getJSON()
+    $(function(){
+            $('#send').click(function(){
+                $.getJSON('test.json');
+                },function(data){
+                    //data:返回的数据
+                });
+            })
+
+16.$.ajax(options)
+
+
+17.serialize()
+    该方法作用于一个jQuery对象，它能够将DOM元素的内容序列化为字符串。
+    表单和其他选择器选取元素都能使用它：
+    eg。    $(":checkbox,:radio").serialize();
+
+18.serializeArray()方法
+该方法不是返回字符串，而是将DOM元素序列化后，返回JSON格式的数据。
+
+19.$.param()方法
+它是serialize方法的核心，用来对一个数组或对象按照key/value进行序列化
+
+20.$.getJSON()跨域访问
+    1>同一域名下不跨域访问是一样的：
+        var url="http://127.0.0.1:8888/aaa"
+        $(function(){
+                $.getJSON(url,function(data){
+                    alert(data.name);
+                    });
+                })
+        
+    服务器端返回字符串:
+    {"name":"loogn","age":23}
+
+    2>不同域名下
+
+    var url="http://127.0.0.1:8888/aaa?callback=?";
+    $(function(){
+        $.getJSON(url,function(data){
+            alert(data.name);
+            });
+        });
+
+    服务器端返回字符串：
+    jQuery1706543070425920333_1324445763158({"name":"loogn","Age":23})
+
+    注意，服务器端一定要返回这样的字符串格式。
+    tornado 中self.request.arguments.get("callback")就是前面jQuery回调函数的一串字符串，它是byte格式，需要把它转化为str格式，然后和参数拼接起来，格式必须一样，参数要用小括号包起来。
+

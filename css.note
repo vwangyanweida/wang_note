@@ -1,0 +1,49 @@
+1、当使用RGB的百分比时，即使当值为0时也要写百分比符号。
+2、如果值为若干单词，要加给值加引号：
+    eg：    p {font-family: "sans serif"}
+3、如果要定义不止一个声明，则需要用分号将每个声明分开.
+    eg:     p {text-align:center; color:red;}
+4. 你应该在每行只描述一个属性，这样可以增强样式定义的可读性
+5.你可以对选择器进行分组，这样，被分组的选择器就可以分享相同的声明。用逗号将需要分组的选择器分开
+eg.     h1,h2,h3,h4,h5,h6 {
+              color: green;
+            }
+6.通过依据元素在其位置的上下文关系来定义样式称为派生选择器：
+eg:     li strong {
+            font-size :italic;
+            font-weight:normal;
+            }
+7.后代选择器，又称包含选择器:
+    eg: h1 em{color:red;}
+
+语法解释:
+<1> 在后代选择器中，规则左边的选择器一端包括两个或多个用空格分隔的选择器。选择器之间的空格是一种结合符（combinator）。每个空格结合符可以解释为“... 在 ... 找到”、“... 作为 ... 的一部分”、“... 作为 ... 的后代”，但是要求必须从右向左读选择器。
+    因此，h1 em 选择器可以解释为 “作为 h1 元素后代的任何 em 元素”。如果要从左向右读选择器，可以换成以下说法：“包含 em 的所有 h1 会把以下样式应用到该 em”
+
+<2> 有关后代选择器有一个易被忽视的方面，即两个元素之间的层次间隔可以是无限的。
+    例如，如果写作 ul em，这个语法就会选择从 ul 元素继承的所有 em 元素，而不论 em 的嵌套层次多深.
+
+8.子元素选择器
+    与后代选择器相比，子元素选择器（Child selectors）只能选择作为某元素子元素的元素。
+    如果您不希望选择任意的后代元素，而是希望缩小范围，只选择某个元素的子元素，请使用子元素选择器（Child selector）
+    eg:     如果您希望选择只作为 h1 元素子元素的 strong 元素
+            h1 > strong {color:red;}
+9.属性选择器：
+    *[title]{color:red}
+<1>    eg. a[href] {color:red}
+        a[href][title] {color:red}
+        img[alt] {border:5px solic red;}
+
+
+<2>    eg.属性有值选择
+        a[href="http://www.3c.."] {color:red}
+
+<3>    如果需要根据属性值中的词列表的某个词进行选择，则需要使用波浪号（~）。
+        eg.
+10.块级元素中内容浮动的话，会导致该块级元素不能够自适应内部元素的高度，所以要在会计元素的css代码中加入”overflow:hidden;“.
+
+11. 设置css之前，先把浏览器默认的css样式清除。body,h1,a{padding:0;margin:0;}
+12.设置h1字体大小之前需要清楚浏览器的默认样式，h1{font-size:100%;}有些控件有默认样式，使用时可能要先清楚自动样式。
+
+12 andriod网页适配加上一行
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />

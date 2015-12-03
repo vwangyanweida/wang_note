@@ -1,0 +1,17 @@
+1、mongo客户端是一个javascript shell，可以从命令行与mongoDB实例交互。
+2、这个shell是功能完备的javascript解释器，可以运行任何javascript程序，包括javascript的标准库。
+3、选择数据库：use foobar ，这是看看db发现其指向foobar。
+4、增：db.blog.insert(post); 想blog集合中添加文档。可以调用集合的find方法查看：db.blog.find(),db.blog.findOne().
+5、改：update接受（至少）两个参数：第一个是要更新文档的限定条件，第二个是新的文档。 db.blog.update({title:"My Blog Post"},{"comments":[]})
+6、删：remove用来从数据库永久性的删除文档，不是用参数的情况下，会删除一个集合内的所有文档，它也可以接受一个文档以指定限定条件。 db.blog.remove({title:"My Blog Post"})
+
+语法糖：show dbs，show collections,show users,show profile,use <db name>
+        db.help(),db.foo.help(),db.foo.find(),db.foo.find({a:1}),it
+
+输入函数时不加括号，这样会显示该函数的javascript源代码。如：db.foo.update
+
+当JavaScript只有在db中找不到指定的属性时，才会将其作为集合返回。当有属性与目标集合同名时，可以使用getCollection函数：db.getCollection("version")
+
+EmbeddedDocument是包含在父Document里的一组数据，没有单独的Collection。
+ReferenceDocument有自己独立的Collection，引用它的Docuemnt中只包含一个Id
+
