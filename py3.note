@@ -36,3 +36,112 @@ my_dict = {key: value for value, key in enumerate(my_phrase)}
 print(my_dict)
 reversed_dict = {value: key for key, value in my_dict.items()}
 print(reversed_dict)
+
+10.高阶函数：
+    map
+    from functools import reduce，reduce
+    filter
+    sorted：它可以接受一个key函数来实现自定义的排序，key指定的函数将作用于list的每一个元素上，并根据key函数返回的结果进行排序。
+
+11.闭包
+def lazy_sum(*args):
+    def sum():
+        ax = 0
+        for n in args:
+            ax = ax + n
+        return ax
+    return sum
+
+f = lazy_sum(1,2,3,4,5)
+f
+<function lazy_sum.<locals>.sum at0x0101ad>
+在这个例子中，我们在函数lazy_sum中又定义了函数sum，并且，内部函数sum可以引用外部函数lazy_sum的参数和局部变量，当lazy_sum返回函数sum时，相关参数和变量都保存在返回的函数中，这种称为“闭包（Closure）”的程序结构拥有极大的威力
+
+12.@coroutine decorator的定义如下
+
+def coroutine(func):
+    def start(*args,**kwargs):
+        cr = func(*args,**kwargs)
+        cr.next()
+        return cr
+    return start
+
+这是因为需要使用yield，但可能忘记第一次初始化，next(target)或者target.send(None),所以写来这个装饰器，将yield的第一次next加上。
+
+import time
+from tornado.gen import coroutine
+
+def follow(thefile,target):
+    thefile.seek(0,2)   #go to the end of the file
+    while True:
+        line = thefile.readline()
+        if not line:
+            time.sleep(0.1)
+            continue
+        target.send(line)
+
+@coroutine
+def printer():
+    while True:
+        line = (yield)
+        print(line)
+
+if __name__ == '__main__':
+    f = open("t.txt")                                                           
+    follow(f,printer())
+
+协程使用的就是yield关键字方法，像一个生成器。
+
+
+13.__slots__ 方法:限制实例的属性
+    eg.     
+        class Student(object):
+            __slots__ = ('name','age') #用tuple定义允许绑定的属性名称。
+
+    1>注意，__slots__定义的属性仅对当前类实例起作用，对继承的子类是不起作用的。子类如果需要，可以重新定义__slots__.
+
+14.@property
+    
+    eg.
+        class Student(object):
+
+            @property
+            def score(self):
+                return self._score
+
+            @score.setter
+            def score(self, value):
+                if not isinstance(value, int):
+                    raise ValueError('score must be an integer!')
+                if value < 0 or value > 100:
+                    raise ValueError('score must between 0 ~ 100!')
+                self._score = value
+
+    1> Python内置的@property装饰器就是负责把一个方法变成属性调用的
+    
+   2>  把一个getter方法变成属性，只需要加上@property就可以了，此时，@property本身又创建了另一个装饰器@score.setter，负责把一个setter方法变成属性赋值，于是，我们就拥有一个可控的属性操作
+        
+    s = Student()
+    s.score = 60
+    s.score
+>>> 60
+
+15.
+    elf, name='world'): # 先定义函数
+                          ...     print('Hello, %s.' % name)ype()函数既可以返回一个对象的类型，又可以创建出新的类型，比如，我们可以通过type()函数创建出Hello类，而无需通过class Hello(object)...的定义
+    
+    通过type()函数创建的类和直接写class是完全一样的，因为Python解释器遇到class定义时，仅仅是扫描一下class定义的语法，然后调用type()函数创建出class。
+    eg.
+
+    >>> def fn(self, name='world'): # 先定义函数
+    ...     print('Hello, %s.' % name)
+            Hello = type('Hello', (object,), dict(hello=fn)) # 创建Hello class
+            h = Hello()
+            h.hello()
+    Hello, world
+
+    要创建一个class对象，type()函数依次传入3个参数：
+
+    1.class的名称；
+    2.继承的父类集合，注意Python支持多重继承，如果只有一个父类，别忘了tuple的单元素写法；
+    3.class的方法名称与函数绑定，这里我们把函数fn绑定到方法名hello上。
