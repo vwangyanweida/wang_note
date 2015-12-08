@@ -145,3 +145,33 @@ if __name__ == '__main__':
     1.class的名称；
     2.继承的父类集合，注意Python支持多重继承，如果只有一个父类，别忘了tuple的单元素写法；
     3.class的方法名称与函数绑定，这里我们把函数fn绑定到方法名hello上。
+
+15.可迭代对象指的是内部有一下三个方法之一的对象。
+    __iter__()或者__next__()或者__getitem__() 方法
+
+16.python2 定义可迭代对象时对象内部定义next()方法，python3中需定义__next__()方法。
+
+17.偏函数：
+    partial函数，它可以重新绑定函数的可选参数，生成一个callable的partial对象：
+    它默认绑定了一个参数，可以用key=value的方法，改变那个默认的参数。
+    >>>from functools import partial
+    >>>int2 = partial(int,2)
+    >>>int2('10')
+    TypeError:xxxxxxxxxx
+    
+    在使用partial函数是，必须声明绑定参数的形参名。
+    >>>int2 = partial(int,base=2)
+    >>>int2('10')
+    >>>2
+    
+    可以在调用偏函数时，重载默认绑定的形参。
+    >>>int2('10',3)
+    TypeError: int() takes at most 2 arguments (3 given)
+    偏函数默认绑定了一个参数
+    
+    >>>int2('10',base=3)
+    >>>3 
+    重载了形参，偏函数没有生效。
+
+18.update_wrapper函数，它可以把被封装函数的__name__,__module__,__doc__和__dict__都复制到封装函数去：
+
