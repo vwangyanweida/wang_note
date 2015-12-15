@@ -1,0 +1,7 @@
+1. <body style="link:red;alink:green">
+    link:没有访问时超文本链接颜色
+    alink:   被访问时超链接颜色
+    vlink:   访问过的超文本链接颜色
+    background：背景图片，可以用bgproperties="fixed"这个属性讲背景图片固定
+    bgcolor     ：背景颜色，有背景图片失效，除非图像具有透明度或没有被拉伸。2. <hr/> color:设置水平线颜色 width:可以是像素（px）或者相对值
+
