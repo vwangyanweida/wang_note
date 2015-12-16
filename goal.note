@@ -2,3 +2,48 @@
 2、js，cs，ng，socket，twisted。pyqt
 3、nginx
 
+
+1.熟悉python语言，熟悉Django，Tornado，Greenlet，熟悉操作mysql，mongodb、redis、nginx、tornado中的一种或多种；熟悉Web服务器如Apache、nginx的配置。
+了解前端的基本技术如HTML，css，js
+加分：有独立建站经验，对前断有一定的了解
+    对爬虫，大型数据存储有一定经验
+    对markdown语言，restful有一定了解
+
+
+2.熟悉python网络编程、多线程技术，有过爬虫项目经验
+    有过分布式消息队列（celery）/定时调度项目经验优先
+    有过django web项目经验优先
+
+3.精通python开发，爬虫开发
+熟悉linux、shell、以及常用命令
+熟悉各种linux系统管理工具，网络工具
+熟悉git、mysql、Redis
+有大数据平台开发经验优先
+熟悉Flask、Django等开源框架优先
+有博客者优先
+
+
+4.具有Python，Javascript，and Html编程技能
+具备Python web 框架方面的经验，如Django,Flask,Tornad等
+具备使用python语言开发GUI应用程序开发的经验，如pyQt,pyWx;
+具备网络和数据库知识。
+熟悉linux系统
+在软件开发之外 也能兼职作测试工作，尤其是自动化测试
+
+5.2年以上的python开发经验，有大型网络公司经验
+精通python，并熟悉至少一种其他开发语言。
+熟悉Tornado、twisted‘libevent等异步socket通讯框架者优先考虑；
+熟悉使用mysql或pgsql数据库，熟悉Mongodb，redis等NoSQL数据库；具备面向对象设计思想，结构清晰，命名规范。
+
+6.熟悉http/https原理
+熟悉request urllib/urllib3等python包
+了解常见的python html解析苦，熟悉操作系统基本与阿里
+熟悉web前段，并能读懂javascript代码
+
+
+7.熟悉python，能够熟练运用Django开发
+熟悉数据库操作，熟悉Mysql数据查询及操作
+熟悉一种NoSQL数据库（如redis）
+熟悉web开发相关技术，如web框架，http协议，web安全等
+
+
