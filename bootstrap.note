@@ -1,0 +1,32 @@
+1.<head>里面基本信息：
+   <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Bootstrap 101 Template</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <script src="../script/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script> 
+
+2.Bootstrap 项目的开头应该使用<!DOCTYPE html>
+
+3.为了让 Bootstrap 开发的网站对移动设备友好，确保适当的绘制和触屏缩放，需要在网页的 head 之中添加 viewport meta 标签，如下所示：
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    注释：
+        1> width 属性控制设备的宽度。假设您的网站将被带有不同屏幕分辨率的设备浏览，那么将它设置为 device-width 可以确保它能正确呈现在不同设备上
+        2> initial-scale=1.0 确保网页加载时，以 1:1 的比例呈现，不会有任何的缩放。
+        3> 在移动设备浏览器上，通过为 viewport meta 标签添加 user-scalable=no 可以禁用其缩放（zooming）功能。
+通常情况下，maximum-scale=1.0 与 user-scalable=no 一起使用。这样禁用缩放功能后，用户只能滚动屏幕，就能让您的网站看上去更像原生应用的感觉。
+
+4.响应式图像
+    <img src="..." class="img-responsive" alt="响应式图像">
+    在下面的代码中，可以看到img-responsive class 为图像赋予了 max-width: 100%; 和 height: auto; 属性，可以让图像按比例缩放，不超过其父元素的尺寸
+    .img-responsive {
+        display: inline-block;
+        height: auto;
+        max-width: 100%;
+        }
+
+
