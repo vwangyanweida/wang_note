@@ -47,3 +47,34 @@ eg:     li strong {
 
 12 andriod网页适配加上一行
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+
+13.水平居中和垂直居中
+    水平居中：
+        块级元素的水平居中：margin:0px auto;
+        文字内容的水平居中:text-align:center;
+   
+    垂直居中：
+        常见的单行文字的垂直居中可设置文字所在行的height与行高样式属性一致，比如:
+        div{
+        width:400px;
+        height:400px;
+        line-height:400px;
+        }
+
+14.float
+float: 浮动方向(left、right、none);
+
+  left为左浮动、right为右浮动、none是默认值表示不浮动，设置元素的浮动，该元素将脱离文档流，<<<<<向左或向右移动直到它的外边距碰到父元素的边框或另一个浮动元素的边框为止>>>>>
+
+   clear只对块级元素有效，表示如果前一个元素存在左浮动或右浮动，则换行
+
+15.clear
+    clear只对块级元素有效，表示如果前一个元素存在左浮动或右浮动，则换行
+
+16.块状元素
+    一般是其他元素的容器，可容纳内联元素和其他块状元素，块状元素排斥其他元素与其位于同一行，宽度(width)高度(height)起作用。常见块状元素为div和p。
+
+17.内联元素
+    内联元素只能容纳文本或者其他内联元素，它允许其他内联元素与其位于同一行，但宽度(width)高度(height)不起作用。常见内联元素为“a”。
+
+18."text-indent:2em;"属性，只能加在块状元素上面，内联元素是不起作用的
