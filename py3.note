@@ -175,3 +175,77 @@ if __name__ == '__main__':
 
 18.update_wrapper函数，它可以把被封装函数的__name__,__module__,__doc__和__dict__都复制到封装函数去：
 
+19.wraps函数
+def wraps(wrapped,assigned = WRAPPER_ASSIGNMENTS,updated = WRAPPER_UPDATES):
+    return partial(update_wrapper, wrapped=wrapped,
+                     assigned=assigned, updated=updated)
+从wraps的定义可以看出wraps是update_wrapper的偏函数。
+    eg.
+        import sys
+
+        debug_log = sys.stderr
+
+        def trace(func):
+          if debug_log:
+            def callf(*args, **kwargs):
+              """A wrapper function."""
+              debug_log.write('Calling function: {}\n'.format(func.__name__))
+              res = func(*args, **kwargs)
+              debug_log.write('Return value: {}\n'.format(res))
+              return res
+            return callf
+          else:
+            return func
+
+        @trace
+        def square(x):
+          """Calculate the square of the given number."""
+          return x * x
+
+       >> import square
+       >> help(square)  #print(square.__doc__)
+       calf(*args,**kwargs)
+            A wrapper function.
+
+    装饰器是返回一个函数，然后把函数重新复制给原函数名，即：
+        def _square(x):
+            return x * x
+        square = trace(_square)
+    所以使用过装饰器以后，原函数的__name__,__doc__ ....一类的环境变量会变成装饰器的环境变量，使用@functools.wraps(func)装饰器修饰返回的函数时，可以将原函数的环境变量赋予装饰器本身的环境变量。
+        
+20.给一类的实例绑定一个方法需要使用MethodType方法
+    eg.
+        >>>def set_age(self,age):
+                self.age = age
+        >>>from types import MethodType
+        >>>s.set_age = MethodType(set_age,s)
+        >>>s.set_age(25)
+        >>>s.age
+        25
+
+    如果不是用MethodType方法而直接将s.set_age=set_age会导致调用方法时self参数也需要指定对象，即set_age方法只是一个普通函数，不会自动指定self参数。
+    而且s.set_age只是对set_age方法的引用，他们指针位置相同。
+    >>>a.set_age
+    <function set_age at 0x10493cbf8>
+    >>>set_age
+    <function set_age at 0x10493cbf8>
+
+21. 但是如果用MethodType绑定方法到一个实例中，那其他的实例是不起作用的，如果想给所有实例都绑定方法，可以给class绑定方法：
+    >>>Student.set_score = MethodType(set_score,Student)
+
+    通常情况下，这些可以直接定义在class中，但动态绑定允许我们在程序运行过程中动态的添加功能。
+
+22.
+   如果一个类想被用于for ... in 循环，类似list或tuple那样，就必须实现一个 __iter__方法， 该方法返回一个迭代对象，然后python的for循环就会不断调用该迭代对象的__next__()方法拿到循环的下一个值。
+
+23.__getitem__
+    按照下标取出元素，需要实现__getitem__()方法：
+    eg.
+        class Fib(object):
+            def __getitem__(self,n):
+                a,b = 1,1
+                for x in range(n):
+                    a,b = b,a+b
+                return a
+
+24.任何类，只需要定义一个__call__()方法，就可以直接对实例进行调用。
