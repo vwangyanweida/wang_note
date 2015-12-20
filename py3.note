@@ -249,3 +249,44 @@ def wraps(wrapped,assigned = WRAPPER_ASSIGNMENTS,updated = WRAPPER_UPDATES):
                 return a
 
 24.任何类，只需要定义一个__call__()方法，就可以直接对实例进行调用。
+25.yield
+
+yield 相当于两句话
+    eg.
+    ret = yield sum,[a,b] == yield sum,[a,b]
+                             ret = yield
+
+另外，yield sum,[a,b]这个返回的命令会阻塞程序，相当于renturn，而ret = yield
+这些接受参数的命令不会阻塞。
+
+eg.
+   
+def loop1():
+  """ 循环1负责抛出一个函数和对应的参数, 并接收结果
+  """
+  a = 0
+  ret = 1
+  while True:
+    ret = yield sum, [a, ret]  //!!!!!!!!!!!此处相当于两句话，如果next()调用的是第一句话，yeild sum,[a,ret],执行完这句话阻塞程序。然后再次send()方法调用第二句话，ret ＝yield，此处不阻塞程序。
+    a, ret = ret, a
+    print("Loop1 ret", ret)
+
+def loop2():
+  """ 循环2 负责接收函数并计算结果, 然后 yield 出结果
+  """
+  while True:
+    func, args = yield
+    print('yield 1')
+    yield func(args)
+    print('yield 2')
+    print("Loop2")
+
+
+l1 = loop1()
+l2 = loop2()
+tmp = next(l1)
+
+for i in range(10):
+  next(l2)
+  ret = l2.send(tmp)
+  tmp = l1.send(ret) 
