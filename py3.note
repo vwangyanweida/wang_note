@@ -290,3 +290,17 @@ for i in range(10):
   next(l2)
   ret = l2.send(tmp)
   tmp = l1.send(ret) 
+
+26.json.dumps
+    1.python 中的字符串分普通字符串和unicode字符串，一般从数据库读取的字符串会自动被转换为unicode字符串
+    该函数默认转化为普通字符，如果转化的对象中有unicode值，需要加上一个参数，即json.dumps(obj,ensure_ascii=False)
+
+    2.default
+    default是一个函数，返回将对象转化为json的方法。
+
+27.
+    协程时使用send方法，生成器主要使用next方法，协程不是异步，除非协程调用的是异步io，异步io需要系统底层支持。
+
+28.celery，rabbitmq
+
+
