@@ -316,3 +316,24 @@ for i in range(10):
          python test.py
 
          那么将输出空字符串
+
+30.类的__dict__方法，注意这个方法不能把继承类的所有方法输出为字典。
+        class Fruit:
+            price = 0
+            __a = 22
+            def __init__(self):
+                self.__color = "red"
+                self.__price = 11
+
+        class Apple(Fruit):             # Apple继承了Fruit
+            __b = 10
+            c = 33  
+
+        if __name__ == "__main__":
+            apple = Apple()
+
+            print apple.__dict__ 
+
+只有color,price是用self.来操作的，表示他们并不是类属性，而是实例属性。apple=Apple()中apple就是实例，Apple是类。apple.__dict__显示的是apple这个实例的属性，就是用self修饰的属性，也就是在父类中的__color和__price。
+
+你可以试试print Apple.__dict__ 坐下对比
