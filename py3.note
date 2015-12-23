@@ -302,5 +302,17 @@ for i in range(10):
     协程时使用send方法，生成器主要使用next方法，协程不是异步，除非协程调用的是异步io，异步io需要系统底层支持。
 
 28.celery，rabbitmq
+    celery 分布式任务队列
 
+29. __file__
+(1).当"print os.path.dirname(__file__)"所在脚本是以完整路径被运行的， 那么将输出该脚本所在的完整路径，比如：
 
+             python d:/pythonSrc/test/test.py
+
+             那么将输出 d:/pythonSrc/test
+
+ (2).当"print os.path.dirname(__file__)"所在脚本是以相对路径被运行的， 那么将输出空目录，比如：
+
+         python test.py
+
+         那么将输出空字符串
