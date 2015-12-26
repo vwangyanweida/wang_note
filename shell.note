@@ -56,3 +56,5 @@ eg
     $@:代表所有参数的内容
 
 13.ps aux |grep 'python monitor.py'|cut -c 9-15|xargs kill -9(按名称杀掉改程序)
+
+14.mac改终端中的计算机名：sudo scutil --set HostName rainbird-desk
