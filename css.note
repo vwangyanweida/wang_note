@@ -78,3 +78,11 @@ float: 浮动方向(left、right、none);
     内联元素只能容纳文本或者其他内联元素，它允许其他内联元素与其位于同一行，但宽度(width)高度(height)不起作用。常见内联元素为“a”。
 
 18."text-indent:2em;"属性，只能加在块状元素上面，内联元素是不起作用的
+
+19.a:hover  选择鼠标指针浮动在其上的元素，并设置其样式：
+    eg. 
+        a:hover{ background-color:yellow;  }
+
+
+20.缩写
+    <abbr title="Real Simple Syndication" class="initialism">RSS</abbr>
