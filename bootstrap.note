@@ -48,3 +48,16 @@ body {
 最后一条规则设置默认的背景颜色为白色
 
 7.HTML 的默认强调标签 <small>（设置文本为父文本大小的 85%）、<strong>（设置文本为更粗的文本）、<em>（设置文本为斜体）。
+
+8.锚元素使用disabled class只会改变<a>的外观，不会改变它的功能，需使用js来改变它的功能。
+
+9.您可以在 <a>、<button> 或 <input> 元素上使用按钮 class。但是建议您在 <button> 元素上使用按钮 class，避免跨浏览器的不一致性问题。
+
+10.img
+    .img-rounded: 添加 border-radius:6px 来获得图片圆角。
+    .img-circle:添加 border-radius:500px 来让整个图片变成圆形。
+    .img-thumbnail:添加一些内边距（padding）和一个灰色的边框。
+    .img-responsive:图片响应式 (将很好地扩展到父元素)
+
+    通过在 <img> 标签添加 .img-responsive 类来让图片支持响应式设计。 图片将很好地扩展到父元素。
+    .img-responsive 类将 max-width: 100%; 和 height: auto; 样式应用在图片上：
