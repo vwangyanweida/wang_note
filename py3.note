@@ -365,4 +365,4 @@ for i in range(10):
 
         >>>(<class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.Root'>, <type 'object'>)
 
-
+35.mongoengine:一个新的文档创建保存，但此时这个文档对象的id不可访问，product.reload()或许可以解决
