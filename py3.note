@@ -366,3 +366,33 @@ for i in range(10):
         >>>(<class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.Root'>, <type 'object'>)
 
 35.mongoengine:一个新的文档创建保存，但此时这个文档对象的id不可访问，product.reload()或许可以解决
+
+36.mongoengine 自动递加递减：
+
+自动更新
+你而已对一个QuerySet()使用update_one()或update()来实现自动更新，有一些可以与这两个方法结合使用的操作符： 
+set – 设置成一个指定的值
+unset – 删除一个指定的值
+inc – 将值加上一个给定的数
+dec – 将值减去一个给定的数
+pop – 将 list 里面的最后一项移除
+push – 在 list 里面添加一个值
+push_all – 在 list 里面添加好几个值
+pull – 将一个值从 list 里面移除
+pull_all – 将好几个值从 list 里面移除
+add_to_set – 如果list里面没有这个值，则添加这个值自动更新的语法与查询的语法基本相同，区别在于操作符写在字段之前：
+    eg.
+    >>> post = BlogPost(title='Test', page_views=0, tags=['database'])  
+    >>> post.save()  
+    >>> BlogPost.objects(id=post.id).update_one(inc__page_views=1)  
+    >>> post.reload()  # the document has been changed, so we need to reload it  
+    >>> post.page_views  
+    1  
+    >>> BlogPost.objects(id=post.id).update_one(set__title='Example Post')  
+    >>> post.reload()  
+    >>> post.title  
+    'Example Post'  
+    >>> BlogPost.objects(id=post.id).update_one(push__tags='nosql')  
+    >>> post.reload()  
+    >>> post.tags  
+注意reload的使用
