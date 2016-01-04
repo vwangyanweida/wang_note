@@ -522,7 +522,7 @@ callback：在动画完成时执行的函数，可选
 19.$.param()方法
 它是serialize方法的核心，用来对一个数组或对象按照key/value进行序列化
 
-20.$.getJSON()跨域访问
+20.$.getJSON()跨域访问:jsonp
     1>同一域名下不跨域访问是一样的：
         var url="http://127.0.0.1:8888/aaa"
         $(function(){
