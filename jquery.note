@@ -475,6 +475,7 @@ callback：在动画完成时执行的函数，可选
     4>.load()方法中，无论Ajax请求是否成功，只要当请求完成（complete）后，回调函数（callback）就被触发。对应 $.ajax()方法中的complete回调函数。
 
 12.$get()和$post()方法
+$get()方法是使用GET方式来进行异步请求。
 
     $.get(url [,data] [,callback] [,type])
     url               String        url地址  
@@ -546,8 +547,10 @@ callback：在动画完成时执行的函数，可选
     服务器端返回字符串：
     jQuery1706543070425920333_1324445763158({"name":"loogn","Age":23})
 
+    jQuery 将自动把url里的回调函数，例如"url?callback=?"中的后一个"?"替换为正确的函数名，以执行回调函。callback这个单词可以随意调整。
+    
     注意，服务器端一定要返回这样的字符串格式。
-    tornado 中self.request.arguments.get("callback")就是前面jQuery回调函数的一串字符串，它是byte格式，需要把它转化为str格式，然后和参数拼接起来，格式必须一样，参数要用小括号包起来。
+    tornado 中self.request.arguments.get("callback")就是前面jQuery回调函数的一串字符串，它是byte格式，需要把它转化为str格式，然后和结果参数拼接起来，格式必须一样，参数要用小括号包起来。这样返回浏览器端时，浏览器可以继续调用回调函数。
 
 21.以前在做网站的时候，经常会遇到当前页的分类高亮显示，以便让用户了解当前处于哪个页面。之前一直是在每个不同页面写方法。工程量大，也不便于修改。一直在想有什么简便的方法实现。后来在网上查到可以用获取当前URL的详细信息来判断。所以收集了JQUERY获取URL的函数的资料。
 设置或获取对象指定的文件名或路径。
