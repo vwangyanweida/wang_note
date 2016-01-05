@@ -302,10 +302,13 @@ for i in range(10):
         def d(obj):
         ...   if isinstance(obj,datetime.datetime):
         ...     return obj.strftime('%Y-%m-%d %H:%M:%S')
+        ...   else: 
+        ...     raise 'type error'
         e = json.dumps(c,default=d)
         e
         '{"b": "hello", "a": "2016-01-04 22:54:14"}'
-        所以可以用来转化哪些字典或列表或其他对象中的不规范的对象。
+        所以可以用来转化哪些字典或列表或其他对象中的不规范的对象。default定义的函数似乎只有在不是dumps能解析的常规类型才会去调用，如果不是函数定义的几种类型，可以最后加一个类型报错。
+
 27.
     协程时使用send方法，生成器主要使用next方法，协程不是异步，除非协程调用的是异步io，异步io需要系统底层支持。
 
@@ -313,7 +316,7 @@ for i in range(10):
     celery 分布式任务队列
 
 29. __file__
-(1).当"print os.path.dirname(__file__)"所在脚本是以完整路径被运行的， 那么将输出该脚本所在的完整路径，比如：
+(1).当"print os.path.dirname(__file__)"所在脚本是以完整路径被运行的， 那么将输出该脚本所在的完整路径，就是文件所在的目录，比如：
 
              python d:/pythonSrc/test/test.py
 
