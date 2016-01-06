@@ -422,3 +422,11 @@ add_to_set – 如果list里面没有这个值，则添加这个值自动更新�
 
 38.花三分钟接入ssl证书
 http://www.tuicool.com/articles/mU7nErr
+
+39.正则表达式
+4. 零宽断言
+1) 常用零宽断言语法
+(?=exp) 匹配exp前面的位置
+(?<=exp) 匹配exp后面的位置
+(?!exp) 匹配后面跟的不是exp的位置
+(?<!exp) 匹配前面不是exp的位置
