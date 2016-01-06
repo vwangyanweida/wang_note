@@ -21,4 +21,3 @@ eg：
     boolean:true和falses ，但值为false,0,null,undefined,NaN或者空字符串时表示假，其他值则表示真。
 
 4.
-
