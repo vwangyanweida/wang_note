@@ -10,3 +10,16 @@ ng-bind 指令把应用程序变量 name 绑定到某个段落的 innerHTML。
 AngularJS 模块（Module） 定义了 AngularJS 应用。
 AngularJS 控制器（Controller） 用于控制 AngularJS 应用。
 ng-app指令定义了应用, ng-controller 定义了控制器
+4.
+ng-reapeat 指令重复一个HTML元素。
+    eg.
+  <div ng-app="" ng-init="names=['Jani','Hege','Kai']">
+      <p>使用 ng-repeat 来循环数组</p>
+      <ul>
+        <li ng-repeat="x in names">
+          {{ x }}
+        </li>
+      </ul>
+    <div>
+
+5.

@@ -1,1 +1,5 @@
+1.tornado 的redict方法，重定向时最前面的/不能省，
+    如：self.redirect('/admin/login')
+    如果没有最前面的/写成self.redirect('admin/login')，中间会多一个admin。
 
+2.
