@@ -21,5 +21,32 @@ ng-reapeat 指令重复一个HTML元素。
         </li>
       </ul>
     <div>
+5.ng-show
+提示信息会在 ng-show 属性返回 true 的情况下显示 
+    eg.
+        <form ng-app="" name="myForm">
+            Email:
+    <input type="email" name="myAddress" ng-model="text">
+    <span ng-show="myForm.myAddress.$error.email">不是一个合法的邮箱地址</span>
+</form>
 
-5.
+2>
+    ng-show 指令根据 value 的值来显示（隐藏）HTML 元素。
+    也可以使用表达式来计算布尔值（ true 或 false）:
+    <div ng-app="">
+    <p ng-show="hour > 12">我是可见的。</p>
+    </div>
+
+6.ng-disabled 指令绑定应用程序数据 "mySwitch" 到 HTML 的 disabled 属性。
+
+7.ng-hide 指令
+ng-hide 指令用于隐藏或显示 HTML 元素。
+
+8.angular 事件
+    1>ng-click
+        eg:
+            <div ng-app="" ng-controller="myCtrl">
+            <button ng-click="count = count + 1">点我！</button>
+            <p>{{ count  }}</p>
+            </div>
+    2>        
