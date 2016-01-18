@@ -2,4 +2,5 @@
     如：self.redirect('/admin/login')
     如果没有最前面的/写成self.redirect('admin/login')，中间会多一个admin。
 
-2.
+2.ioloop:
+    tornaod.ioloop.IOLoop.instance.start() 运行到eventpairs = self._impl.poll(poll_timeout)那一行监听注册的事件。

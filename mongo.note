@@ -15,3 +15,8 @@
 EmbeddedDocument是包含在父Document里的一组数据，没有单独的Collection。
 ReferenceDocument有自己独立的Collection，引用它的Docuemnt中只包含一个Id
 
+7.mongod的备份与恢复：
+
+mongodump -h dbhost -d dbname -o dbdirectory 备份
+mongorestore -h dbhost -d dbname dbdirectory 恢复
+
