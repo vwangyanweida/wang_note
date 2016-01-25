@@ -1,0 +1,9 @@
+1.mysql:    mysql.server  start
+            mysql.server  stop
+
+2.redis:
+        redis-server &
+        ctrl-c
+3.mongo:
+        sudo mongod &
+        kill -9
