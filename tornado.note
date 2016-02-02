@@ -4,3 +4,7 @@
 
 2.ioloop:
     tornaod.ioloop.IOLoop.instance.start() 运行到eventpairs = self._impl.poll(poll_timeout)那一行监听注册的事件。
+
+3.使用static_url生成静态URL
+    <link rel="stylesheet" href="{{ static_url("style.css") }}"
+    这个static_url的调用生成了URL的值
