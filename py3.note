@@ -476,3 +476,25 @@ print type(foo)
 41.
 类方法的隐含调用参数是类，而类实例方法的隐含调用参数是类的实例，静态方法没有隐含调用参数
 
+42.python 中的闭包：http://www.jb51.net/article/54498.htm
+
+43.闭包经典错误
+def multipliers():
+    return [lambda x : i * x for i in range(4)]
+
+print [m(2) for m in multipliers()]
+
+(1)输出是什么
+(2)为什么会出现这种情况
+(3)怎么修改函数得出想要的结果
+
+答案：
+(1)  [6, 6, 6, 6]
+
+(2)
+当循环结束以后，循环体中的临时变量i不会销毁，而是继续存在于执行环境中。
+python的函数只有在执行时，才会去找函数体里的变量的值。
+
+(3)
+def multipliers():
+    return [lambda x, i=i : i * x for i in range(4)]
