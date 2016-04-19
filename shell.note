@@ -157,3 +157,4 @@ str 检测字符串是否为空，不为空返回 true。   [ $a  ] 返回 true�
 -s file 检测文件是否为空（文件大小是否大于0），不为空返回 true。    [ -s $file  ] 返回 true。
 -e file 检测文件（包括目录）是否存在，如果是，则返回 true。 [ -e $file  ] 返回 true。
 
+23.ubuntu 中文输入法拼音不正确。输入一条命令：ibus-daemon -drx  就可以解决。
