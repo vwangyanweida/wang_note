@@ -206,6 +206,151 @@ text-indent：通过使用 text-indent 属性，所有元素的第一行都可�
 tip4.一般来说，可以为所有块级元素应用 text-indent，但无法将该属性应用于行内元素，图像之类的替换元素上也无法应用 text-indent 属性。不过，如果一个块级元素（比如段落）的首行中有一个图像，它会随该行的其余文本移动。
 
 tip5.如果想把一个行内元素的第一行“缩进”，可以用左内边距或外边距创造这种效果
-
 text-indent 可以使用所有长度单位，包括百分比值。
 
+text-align:它会影响一个元素中的文本行相互之间的对其方式。left、right和center
+tip6：讲块级元素或表元素居中，要通过在这些元素上适当地设置左、右边距来实现。
+
+tip7：<CENTER> 不仅影响文本，还会把整个元素居中。text-align 不会控制元素的对齐，而只影响内部内容。元素本身不会从一段移到另一端，只是其中的文本受影响
+
+justify
+最后一个水平对齐属性是 justify。
+在两端对齐文本中，文本行的左右两端都放在父元素的内边界上。然后，调整单词和字母间的间隔，使各行的长度恰好相等。您也许已经注意到了，两端对齐文本在打印领域很常见。
+需要注意的是，要由用户代理（而不是 CSS）来确定两端对齐文本如何拉伸，以填满父元素左右边界之间的空间
+
+
+字间隔
+    字间隔：word-spacing可以改变字（单词）之间的标准间隔。默认值normal和设置为0一样。
+    word-spacing 属性接受一个正长度值或负长度值。如果提供一个正长度值，那么字之间的间隔就会增加。为 word-spacing 设置一个负值，会把它拉近
+    p.spread {word-spacing: 30px;}
+    p.tight {word-spacing: -0.5em;}
+
+
+字母间隔
+    etter-spacing 属性与 word-spacing 的区别在于，字母间隔修改的是字符或字母之间的间隔。
+
+
+文本装饰
+text-decoration 有 5 个值：
+none    none 值会关闭原本应用到一个元素上的所有装饰
+underline
+overline
+line-through  中间划线
+blink  闪烁
+
+文本方向
+direction 属性影响块级元素中文本的书写方向、表中列布局的方向、内容水平填充其元素框的方向、以及两端对齐元素中最后一行的位置。
+注释：对于行内元素，只有当 unicode-bidi 属性设置为 embed 或 bidi-override 时才会应用 direction 属性。
+direction 属性有两个值：ltr 和 rtl。大多数情况下，默认值是 ltr，显示从左到右的文本。如果显示从右到左的文本，应使用值 rtl
+
+
+
+属性    描述
+color   设置文本颜色
+direction   设置文本方向。
+line-height 设置行高。
+letter-spacing  设置字符间距。
+text-align  对齐元素中的文本。
+text-decoration 向文本添加修饰。
+text-indent 缩进元素中文本的首行。
+text-shadow 设置文本阴影。CSS2 包含该属性，但是 CSS2.1 没有保留该属性。
+text-transform  控制元素中的字母。
+unicode-bidi    设置文本方向。
+white-space 设置元素中空白的处理方式。
+word-spacing    设置字间距。
+
+
+CSS 字体系列
+
+Serif 字体
+Sans-serif 字体
+Monospace 字体
+Cursive 字体
+Fantasy 字体
+
+使用 font-family 属性 定义文本的字体系列。
+
+
+字体风格
+font-style 属性最常用于规定斜体文本。
+该属性有三个值：
+normal - 文本正常显示
+italic - 文本斜体显示
+oblique - 文本倾斜显示
+
+属性    描述
+font    简写属性。作用是把所有针对字体的属性设置在一个声明中。
+font-family 设置字体系列。
+font-size   设置字体的尺寸。
+font-size-adjust    当首选字体不可用时，对替换字体进行智能缩放。（CSS2.1 已删除该属性。）
+font-stretch    对字体进行水平拉伸。（CSS2.1 已删除该属性。）
+font-style  设置字体风格。
+font-variant    以小型大写字体或者正常字体显示文本。
+font-weight 设置字体的粗细。
+
+
+链接的四种状态：
+a:link - 普通的、未被访问的链接
+a:visited - 用户已访问的链接
+a:hover - 鼠标指针位于链接的上方
+a:active - 链接被点击的时刻
+
+当为链接的不同状态设置样式时，请按照以下次序规则：
+a:hover 必须位于 a:link 和 a:visited 之后
+a:active 必须位于 a:hover 之后
+
+
+要修改用于列表项的标志类型，可以使用属性 list-style-type：
+ul {list-style-type : square}
+
+有时，常规的标志是不够的。你可能想对各标志使用一个图像，这可以利用 list-style-image 属性做到：
+ul li {list-style-image : url(xxx.gif)}
+
+
+表格文本对齐
+text-align 和 vertical-align 属性设置表格中文本的对齐方式。
+text-align 属性设置水平对齐方式，比如左对齐、右对齐或者居中：
+
+border-collapse 设置是否把表格边框合并为单一的边框。
+border-spacing  设置分隔单元格边框的距离。
+caption-side    设置表格标题的位置。
+empty-cells 设置是否显示表格中的空单元格。
+table-layout    设置显示单元、行和列的算法。
+
+padding
+内边距的百分比数值
+前面提到过，可以为元素的内边距设置百分数值。百分数值是相对于其父元素的 width 计算的，这一点与外边距一样。所以，如果父元素的 width 改变，它们也会改变。
+margin可以为负
+padding不可以为负
+
+注意：上下内边距与左右内边距一致；即上下内边距的百分数会相对于父元素宽度设置，而不是相对于高度。
+
+每个边框有 3 个方面：宽度、样式，以及颜色
+border-style:
+border-top-style,border-right-style,...
+
+这两种方法是等价的：
+p {border-style: solid solid solid none;}
+p {border-style: solid; border-left-style: none;}
+注意：如果要使用第二种方法，必须把单边属性放在简写属性之后。因为如果把单边属性放在 border-style 之前，简写属性的值就会覆盖单边值 none。
+
+border-width为边框制定宽度
+为边框指定宽度有两种方法：可以指定长度值，比如 2px 或 0.1em；或者使用 3 个关键字之一，它们分别是 thin 、medium（默认值） 和 thick。
+
+tip：由于 border-style 的默认值是 none，如果没有声明样式，就相当于 border-style: none。因此，如果您希望边框出现，就必须声明一个边框样式。
+
+border-color:
+透明边框:transparent;不可见的边框，相当于内边距。可以在适当时候让边框可见。
+
+p {margin : 10%;}
+百分数是相对于父元素的 width 计算的。上面这个例子为 p 元素设置的外边距是其父元素的 width 的 10%。
+
+margin 的默认值是 0，所以如果没有为 margin 声明一个值，就不会出现外边距。但是，在实际中，浏览器对许多元素已经提供了预定的样式，外边距也不例外。例如，在支持 CSS 的浏览器中，外边距会在每个段落元素的上面和下面生成“空行”。因此，如果没有为 p 元素声明外边距，浏览器可能会自己应用一个外边距。当然，只要你特别作了声明，就会覆盖默认样式。
+
+
+CSS 定义了一些规则，允许为外边距指定少于 4 个值。规则如下：
+如果缺少左外边距的值，则使用右外边距的值。
+如果缺少下外边距的值，则使用上外边距的值。
+如果缺少右外边距的值，则使用上外边距的值。
+
+margin-top margin-right margin-bottom...单边外边距属性
