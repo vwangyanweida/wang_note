@@ -16,3 +16,4 @@ note1: 那么，为什么使用Channel，而不是直接使用TCP连接？
          如果这个app有bug，忘记了ack，那么RabbitMQ Server不会再发送数据给它，因为Server认为这个Consumer处理能力有限。
 
             而且ack的机制可以起到限流的作用（Benefitto throttling）：在Consumer处理完成数据后发送ack，甚至在额外的延时后发送ack，将有效的balance Consumer的load。
+
