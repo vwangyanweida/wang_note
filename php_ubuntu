@@ -1,0 +1,16 @@
+1.windows 下的thinkphp系统移植到Ubuntu上发现3个问题：
+    1》存储错误，即使把apache的工作目录移动到普通目录，还是需要在Runtime文件夹所在目录使用chomd 777 . 增加权限。
+    2》移动工作目录后发现访问url出现403 forbbit，更改Apache 配置文件
+    添加<Directory /home/paas/>,/home/paas/是具体的新的工作目录，在里面添加
+    Allow from all
+    3》thinkphp 的pathinfo模式没有起作用，发现加上index.php路径可以正常访问，所以是apache的重写规则出错，在ubuntu中配置重写规则。
+    参考：http://blog.csdn.net/dazhi_100/article/details/45874875
+        1 sudo a2enmod
+        2 rewrite
+        3 修改apache配置文件，把（默认的www目录、或者需要应用.htaccess的目录）下的AllowOverride 属性改为All，保存。
+        4. 重启apache
+    经过这三步，xampp下的系统在Ubuntu下可以正常工作。
+
+
+    /etc/apache2/sites-available/000-default.conf   更改apache工作目录
+
