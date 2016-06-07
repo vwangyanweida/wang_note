@@ -5,7 +5,7 @@
     2> 访问时用class::$aNum; class::syaHello();方式调用，
     3> 一个子类可以使用parent关键字来访问父类，而不使用其类名。
     4> 要从当前类访问静态方法或属性，可以使用self关键字。self指向当前类。$this指向当前对象。所以不能再静态方法中使用$this伪变量。
-    5> 只有在使用parent关键字调用方法的时候，才能对一个非静态方法进行静态形式的调用，其他任何情况都需要先生成一个对象，然后使用->符号调用对象中的方法。
+    5> 只有在使用parent关键字调用方法的时候，才能对一个非静态方法进行静态形式的调用，其他任何情况都需要先生成一个对象，然后使用->符号调用对象中的方法。实际上可以直接用 类名::方法()   来调用类中的方法。
 
     为什么使用静态方法和属性
     1> 在代码的任意地方都可以使用，不需要再对象间传递类的实例，也不需要将实例存放到全局变量中，就可以访问类的方法。
@@ -21,4 +21,127 @@
 
 3.抽象类
     抽象类不能直接实例化，php使用abstract关键字定义一个抽象类。
-    
+    大多数情况下，抽象类至少包含一个抽象方法，抽象方法用abstract关键字声明，其中不能有具体内容。可以像声明普通类方法那样声明抽象方法，但要以分号而不是方法体结束。eg。
+    abstract class ShopProductWriter{
+        protected $products = array();
+        public function addProduct($shopProduct){
+            $this->products[] = $shopProduct;
+        }
+
+        abstract public function write();
+    }
+
+    抽象类的每个子类都必须实现抽象类中的所有抽象方法，或者把他们自身也声明为抽象方法。
+
+4.接口
+    抽象类提供了具体实现的标准，而接口则是纯粹的模板。接口只能定义功能，而不包含实现的内容。接口可用关键字interface来声明。接口可以包含属性和方法声明，但是方法体为空。
+    eg
+        interface Chargeable{
+            public function getPrice();
+        }
+任何实现接口的类都要实现接口中所定义的所有方法，否则该类必须声明为abstract。
+一个类可以在声明中使用implements关键字来实现某个接口。这么做以后，实现接口的具体过程和扩展一个仅包含抽象方法的抽象类是一样的。
+    eg
+        class ShopProduct implements Chargeable {
+            public function getPrice*() { return ($this->price - $this->discount);}
+        }
+
+5.延迟静态绑定：static关键字
+    超类中的self与this对对象所起的作用并不完全相同。self指的不是调用上下文，它指的是解析上下文，因此在超类中返回新建对象  return new self();在子类中调用并不会返回子类的对象，它返回的永远是超类自己。php5.3引用了延迟静态绑定的概念。static类似于self，但它指的是被调用的类而不是包含类，这样它就可以生成子类的对象
+    eg
+        Document::create()  将生成一个Document对象而不是超类的对象。
+        
+    eg
+        abstract class DomainObject {
+            public static function create(){
+                return new static();
+             }
+        }
+        
+6.
+final 关键字可以终止类的继承。final类不能有子类，final方法不能被覆写。
+
+7.
+php中call_user_func类似于Python中类的get方法，相当于反射。
+call_user_func 函数类似于一种特别的调用函数的方法，使用方法如下： 
+
+note:静态调用非静态方法在5.3之前版本是允许的，但是在5.3之后建议用static写成静态方法，在5.3之后版本静态调用非静态方法会报标准化错误。！！！
+
+理解php静态调用非静态方法：
+http://www.cnblogs.com/yjf512/archive/2012/09/12/2682556.html
+ 
+ 1.调用普通函数： 
+ <?php
+ function a($b,$c) 
+ {
+   echo $b;
+   echo $c;
+ }
+ call_user_func('a', "111","222");
+ call_user_func('a', "333","444");
+     //显示 111 222 333 444
+?>
+
+2.调用类的方法（包括类的静态的方法与实例对象方法）
+<?php
+class a {
+    function b($i) 
+    {
+        echo $i;
+    }
+    public static c($k)
+    {
+        echo $k;
+    }
+}
+
+//当php <5.3时，可以如下使用，此时会把 b()方法当作是a的一个静态方式。
+call_user_func(array("a", "b"),"111");
+//当php >=5.3时，类的公开的非静态的方法必须在类实例化后方可被调用，否则会提示Strict性错误（为了兼容先前及以后的版本，还是用对象方法传入）。
+$obj=new a;
+call_user_func(array($obj, "b"),"111");//显示 111 
+//静态方法可以如下方式调用
+call_user_func(array("a", "b"),"111");
+//或
+call_user_func("a::b","111");
+?>
+
+call_user_func_array函数和call_user_func很相似，只不过是换了一种方式传递了参数，让参数的结构更清晰:
+ 
+<?php
+function a($b, $c) 
+{
+    echo $b;
+    echo $c;
+
+}
+call_user_func_array('a', array("111", "222"));
+//显示 111 222
+?>
+ 
+call_user_func_array 函数也可以调用类内部的方法的，只不过是后面传参要以数组的形式传入而已。
+
+<?php
+Class ClassA
+{
+
+    function bc($b, $c) {
+         $bc = $b + $c;
+         echo $bc;
+    }
+    function d(){
+         $bc = $b + $c;
+         echo $bc;
+    }
+}
+//php<5.3时，非静态的方法可直接传入类名
+call_user_func_array(array('ClassA','bc'), array("111", "222"));
+//php>=5.3时，非静态的方法 只有在类被实例化后方可调用，否则会提示Strict性错误
+$obj=new classA;
+call_user_func_array(array($obj,'bc'), array("111", "222"));
+//静态方法调用如下
+call_user_func_array(array('ClassA','bc'), array("111", "222"));
+//或
+call_user_func_array('ClassA::bc', array("111", "222"));
+?>
+ 
