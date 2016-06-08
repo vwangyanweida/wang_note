@@ -159,4 +159,85 @@ call_user_func_array('ClassA::bc', array("111", "222"));
             include_once("$classname.php");
         }
  
+3.类函数和对象函数
+    PHP允许使用字符串来动态的引用类：
+        eg  
+            //Task.php
+            namespace tasks;
+            class Task {
+                function doSpeak(){
+                    print "hello \n";
+                }
+            }
 
+            //TaskRunner.php
+            $classname = "Task";
+            require_once("task/{$classname}.php");
+            $classname = "tasks\\$classname";
+            $myObj = new $classname();   //这里直接用一个字符串生成一个对象，简直直接就是反射。
+            $myObj->doSpeak();
+
+    查找类：class_exists()函数接受表示类的字符串，检查并返回布尔值。如果类存在，则返回true，否则返回false。
+    也可以用get_declared_classes()函数来获得脚本进程中定义的所有类的数组。
+    get_class()函数检查对象的类。它接受任何对象作为参数，并以字符串的形式返回类名。
+
+    了解类中的方法
+    可以使用get_class_methods()函数来得到一个类中所有方法的列表。该函数需要一个类名作为参数，返回包含类中所有方法名的数组。注意，这个方法只返回public函数。
+    print_r(get_class_methods('CdProduct'));
+    
+    我们可以以字符串变量的形式给出方法名，然后通过对象动态的调用类方法，（似乎完全都是反射啊）eg
+            $product = getProduct();
+            $method = "getTitle";
+            print $product->$method();//调用方法    反射
+    如果类方法不存在，会因为发生错误而失败，所以要检测方法是否存在：
+        if (in_array($method,get_class_methods($product))){
+            print $product->$method(); //调用方法
+        }
+    其实PHP为此提供了更专业的工具，可以用函数is_callable()和method_exists()来检查。两个函数中is_callable()更高级些，它接受字符串变量形式的方法名作为第一个参数，如果类方法存在且可被调用，则返回true，如果要检测类中的方法是否可以被调用，可以给函数传递一个数组而不是类方法名作为参数。数组必须包含对象或类名，以将其作为它的第一个元素，要检查的方法名则作为第二个元素。如果该方法在类中存在，函数会返回true。
+    if (is_callable(array($product,$method))){
+        print $product->$method();
+    }
+
+    method_exists()函数的参数为一个对象（或者类名）和一个方法名，并且如果给定方法在对象的类中存在，则返回true。
+    if (method_exists($product,$method)){
+        print $product->$method();
+    }
+
+    注意：对于private、protected和public方法，method_exists()都返回true，但只能调用public的方法。
+
+4.类属性
+    get_class_vars()函数，接受类名作为参数，返回关联和数组。只显示public属性。
+    
+5.get父类
+    get_parent_class()需要一个对象或者类名作为参数，并且如果父类存在的话，就返回父类的名字。如果不存在这样的类，就返回false。
+
+    is_subclass_of()函数检测类是否是另一个类的派生类。他需要接受一个子类对象和父类的名字。如果第二个参数是第一个参数的父类的话，该函数就返回true；
+    eg
+        $product = getProduct();
+        if (is_subclass_of($product,'ShopProduct')){......}
+
+    检测一个类是否实现了某个接口，应当使用instanceof操作符。或者class_implements()，使用一个类名或者一个对象引用作为参数，并且返回一个由接口构成的数组。
+    if (in_array('someInterface',class_implements($product))){}
+
+6.方法调用
+    1.使用字符串来动态调用
+        $product = getProduct()
+        $method = "getTitle";
+        print $product->$method();
+   
+   2.使用call_user_func()方法来达到相同的目的。call_user_func()可以调用方法或函数。要调用一个函数，需要将字符串作为它的第一个参数：
+        $returnVal = call_user_func("myFunction");
+    要调用类方法，则需要一个数组。数组的第一个元素是一个对象，第二个元素则是要调用的方法名。
+        $returnVal = call_user_func(array($myObj,"methodName"));
+    传任意参数到call_user_func()
+        $returnVal = call_user_func(array($myObj,"methodName"),20);
+        等价于$myObj->methodName(20);
+    
+    call_user_func_array()函数更好。它把目标方法所需的任何参数当作数座来接受。
+
+
+    __call()方法，当未定义的方法被客户端调用时，会调用__call()方法。
+
+7.反射API
+
+    
