@@ -239,5 +239,28 @@ call_user_func_array('ClassA::bc', array("111", "222"));
     __call()方法，当未定义的方法被客户端调用时，会调用__call()方法。
 
 7.反射API
+    Reflection                      为类的摘要信息提供静态函数export()
+    ReflectionClass                 类信息和工具
+    ReflectionMethod                类方法和工具
+    ReflectionParameter             方法参数信息
+    ReflectionProperty              类属性信息
+    ReflectionFunction              函数信息和工具
+    ReflectionExtension             PHP扩展信息
+    ReflectionException             错误类
 
-    
+    利用反射API中的这些类，可以在运行时访问对象、函数和脚本中的扩展信息。
+    由于反射API非常强大，你应该经常使用反射API而少用类和函数对象函数。
+    反射的另一用途是根据命名规则创建一个调用模板类中的方法的框架。
+
+    1.ReflectionClass提供揭示给定类所有信息的方法。它的构造方法接受类名作为它的唯一参数：
+        $prod_class = new ReflectionClass('CdProduct');
+        Reflection::export($prod_class);
+    Reflection有一个静态方法export(),用于格式化和输出Reflection对象管理的数据(即任何实现Reflector接口的类的实例).
+
+    于var_dump()相比较，var_dump()函数是汇总数据的通用工具，但使用var_dump()在提取摘要前必须实例化一个对象，并且反射比较详细。
+
+    .................
+
+六、对象设计
+
+    面向对象和过程式编程的一个核心区别是如何分配职责
