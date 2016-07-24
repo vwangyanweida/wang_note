@@ -264,3 +264,7 @@ call_user_func_array('ClassA::bc', array("111", "222"));
 六、对象设计
 
     面向对象和过程式编程的一个核心区别是如何分配职责
+	
+	
+	
+七、和angularjs交互时，angularjs的对象传递到thinkphp后端时，格式是stand object，需要用（array）强制数组类型转换。
